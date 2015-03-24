@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,10 +31,12 @@ public class FlightSearch {
        public List<FlightResult> FlightSearchResult() throws InterruptedException, AWTException
        {
     	   List<FlightResult> resultList=new ArrayList<FlightResult>();
-    	   setDriver("Chrome");
+    	   //setDriver("Chrome");
     	   //System.setProperty("webdriver.chrome.driver", "D:\\selenium-2.45.0\\chromedriver.exe");
-   		WebDriver wd=new ChromeDriver();
-   		WebDriverWait wait=new WebDriverWait(wd,30);
+   		//WebDriver wd=new ChromeDriver();
+    	   WebDriver wd=new FirefoxDriver();
+   		WebDriverWait wait=new WebDriverWait(wd,60);
+   		
    		//goto homepage
    		wd.get("http://www.priceline.com/");
    		Thread.sleep(1000);
@@ -65,11 +68,13 @@ public class FlightSearch {
    		
    		//get result
    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".dollar")));
+   		Thread.sleep(2000);
    		List<WebElement> prices=wd.findElements(By.cssSelector(".dollar"));
    		//System.out.println(prices.size());
    		//String p1=prices.get(0).getText().substring(1);
    	    //System.out.println(p1);
-   	    List<WebElement> descrips=wd.findElements(By.className("stops"));
+   	    //List<WebElement> descrips=wd.findElements(By.xpath("//div[@class='stops']|//div[contains(text(),'Total Time']"));+
+   		List<WebElement> descrips=wd.findElements(By.xpath("//*[contains(text(),'Total Time')]/.."));
    	    //System.out.println(descrips.size());
    	    //String s1=stop1.getText();
    	    //System.out.println(s1);
@@ -83,8 +88,12 @@ public class FlightSearch {
    	    fr.setarriveDate(arriveDate);
    	    fr.setdepartDate(departDate);
    	    String price=prices.get(i).getText().substring(1).replace(",", "");
-   	    String descrip=descrips.get(i).getText().replace("\n", " ");
-   	    fr.setPrice(Double.parseDouble(price));
+   	    String descrip=descrips.get(i).getText();
+   	    //String descrip=descrips.get(i).getText().replace("\n", " ");
+   	    //fr.setPrice(Double.parseDouble(price));
+   	    fr.setPrice(price);
+   	   
+   	    //fr.setdescrip("test");
    	    fr.setdescrip(descrip);
    	    //System.out.println(fr.getPrice());
    	    //System.out.println(fr.getdescrip());

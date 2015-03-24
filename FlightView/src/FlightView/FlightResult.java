@@ -1,14 +1,14 @@
 package FlightView;
 
 public class FlightResult {
-	private double price;
+	private String price;
 	private String departDate;
 	private String arriveDate;
 	private String departAP;
 	private String arriveAP;
 	private String descrip;
  
-	public FlightResult(double price, String departDate,String arriveDate, String departAP, String arriveAP, String descrip)
+	public FlightResult(String price, String departDate,String arriveDate, String departAP, String arriveAP, String descrip)
 	{
 		this.price=price;
 		this.departAP=departAP;
@@ -22,11 +22,11 @@ public class FlightResult {
 	{
 		
 	}
-	public void setPrice(double price)
+	public void setPrice(String price)
 	{ 
 		this.price=price;
 	}
-	public double getPrice()
+	public String getPrice()
 	{ 
 		return price;
 	}
