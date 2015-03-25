@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -32,13 +33,14 @@ public class FlightMain {
 			List<FlightResult> result=search1.FlightSearchResult();
 		    allresult.addAll(result);
 		}
+		//Sort the result list by price
+				Collections.sort(allresult);
 		//print out all search result
 		for(FlightResult fr:allresult)
 		{
 			System.out.println(fr.getdepartDate()+","+fr.getarriveDate()+","+fr.getPrice()+","+fr.getdescrip());
 			
 		}
-		//Sort the result list by price
 		
 		
 		System.out.println("Finished!");

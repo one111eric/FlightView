@@ -1,6 +1,6 @@
 package FlightView;
 
-public class FlightResult {
+public class FlightResult implements Comparable<FlightResult>{
 	private String price;
 	private String departDate;
 	private String arriveDate;
@@ -69,6 +69,11 @@ public class FlightResult {
 	public String getdescrip()
 	{
 		return descrip;
+	}
+	@Override
+	public int compareTo(FlightResult fr) {
+		// TODO Auto-generated method stub
+		return Double.compare(Double.parseDouble(price),Double.parseDouble(fr.price));
 	}
 	
 }
