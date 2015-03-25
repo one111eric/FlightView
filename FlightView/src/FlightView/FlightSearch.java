@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -33,22 +35,29 @@ public class FlightSearch {
     	   List<FlightResult> resultList=new ArrayList<FlightResult>();
     	   //setDriver("Chrome");
     	   //System.setProperty("webdriver.chrome.driver", "D:\\selenium-2.45.0\\chromedriver.exe");
+    	   //System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Downloads\\chromedriver_win32\\chromedriver.exe");
    		//WebDriver wd=new ChromeDriver();
     	   WebDriver wd=new FirefoxDriver();
+   		wd.manage().window().setPosition(new Point(0,0));
+   		wd.manage().window().setSize(new Dimension(1024,768));
+   		
+    	  // WebDriver wd=new FirefoxDriver();
    		WebDriverWait wait=new WebDriverWait(wd,60);
    		
    		//goto homepage
    		wd.get("http://www.priceline.com/");
-   		Thread.sleep(1000);
+   		Thread.sleep(1500);
    		//change to flights
+   		
    		wd.findElement(By.linkText("Flights")).click();
-   		Thread.sleep(1000);
+   		
+   		Thread.sleep(1500);
    		//input airports
    		WebElement departBox=wd.findElement(By.id("air-loc-from"));
    		WebElement destBox=wd.findElement(By.id("air-loc-to"));
    		departBox.sendKeys(departAP);
    		destBox.sendKeys(arriveAP);
-   		Thread.sleep(500);
+   		Thread.sleep(1000);
    		//input dates
    		WebElement departDateBox=wd.findElement(By.id("departure-from"));
    		WebElement returnDateBox=wd.findElement(By.id("return-date"));
@@ -70,14 +79,9 @@ public class FlightSearch {
    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".dollar")));
    		Thread.sleep(2000);
    		List<WebElement> prices=wd.findElements(By.cssSelector(".dollar"));
-   		//System.out.println(prices.size());
-   		//String p1=prices.get(0).getText().substring(1);
-   	    //System.out.println(p1);
-   	    //List<WebElement> descrips=wd.findElements(By.xpath("//div[@class='stops']|//div[contains(text(),'Total Time']"));+
+   		//List<WebElement> descrips=wd.findElements(By.xpath("//div[@class='stops']|//div[contains(text(),'Total Time']"));
    		List<WebElement> descrips=wd.findElements(By.xpath("//*[contains(text(),'Total Time')]/.."));
-   	    //System.out.println(descrips.size());
-   	    //String s1=stop1.getText();
-   	    //System.out.println(s1);
+   	    
    	    //add search results into a list
    	    int n=prices.size();
    	    for(int i=0;i<n;i++)
@@ -88,8 +92,8 @@ public class FlightSearch {
    	    fr.setarriveDate(arriveDate);
    	    fr.setdepartDate(departDate);
    	    String price=prices.get(i).getText().substring(1).replace(",", "");
-   	    String descrip=descrips.get(i).getText();
-   	    //String descrip=descrips.get(i).getText().replace("\n", " ");
+   	    //String descrip=descrips.get(i).getText();
+   	    String descrip=descrips.get(i).getText().replace("\n", " ");
    	    //fr.setPrice(Double.parseDouble(price));
    	    fr.setPrice(price);
    	   
